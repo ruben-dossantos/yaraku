@@ -10,6 +10,6 @@ class Book extends Eloquent{
 
     //protected $table = 'my_books';
 
-    //protected $fillable = array('id', 'title', 'author');
+    protected $fillable = array('title', 'author');
 
 }

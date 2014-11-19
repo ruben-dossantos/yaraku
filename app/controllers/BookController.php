@@ -70,6 +70,7 @@ class BookController extends BaseController {
         return 'deleteBooks';
     }
 
+
     public function showInfo($id)
     {
 //        $books = DB::table('books')->get();

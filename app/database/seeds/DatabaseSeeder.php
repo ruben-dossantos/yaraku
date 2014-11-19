@@ -11,13 +11,22 @@ class DatabaseSeeder extends Seeder {
 	{
 //		Eloquent::unguard();
 
-		$book = new Book;
-		$book->id = 2;
-		$book->title= "Da Vinci Code";
-		$book->author= "Dan Brown";
-		$book->save();
+		$this->call('BookTableSeeder');
 
+		$this->command->info('Book table seeded!');
 		// $this->call('UserTableSeeder');
 	}
 
+}
+
+class BookTableSeeder extends Seeder {
+
+	public function run()
+	{
+		$this->command->info('truncate!');
+		DB::table('books')->delete();
+		Book::truncate();
+		Book::create(['title' => 'Green Mile', "author" => "Stephen King"]);
+
+	}
 }
