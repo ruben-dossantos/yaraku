@@ -16,8 +16,13 @@ class BookController extends BaseController {
 
     public function getIndex()
     {
+        $books = DB::table('books')->get();
 
-        $books = $this->$book;
+        foreach ($books as $book)
+        {
+            echo "El titulo: ". $book->title;
+            echo "<br>";
+        }
 
 //        $d = dir(".");
 //        echo "Handle: " . $d->handle . "\n";
@@ -27,41 +32,41 @@ class BookController extends BaseController {
 //        }
 //        $d->close();
 
-        if (($books = fopen("../private/books.csv", "r")) !== FALSE) {
-            while (($bookArray = fgetcsv($books, 1000, ";")) !== FALSE) {
-                echo "id: " . $bookArray[0] . "<br>";
-                echo "title: " . $bookArray[1] . "<br>";
-                echo "author: " . $bookArray[2] . "<br>";
-                echo "<br>";
-                $book = new Book;
-                $book->title = $bookArray[1];
-                $book->author = $bookArray[2];
-//                $book->save();
-            }
-            fclose($books);
-        }
 
-
-//        $books = csvToArray('../private/books.csv');
-//        $books = array_map('str_getcsv', file('private/books.csv'));
-//        foreach($books as $key => $book){
-//            echo $book[0];
-//            $book = new Book;
-//            $book->title = $book[1];
-//            $book->author = $book[2];
-//            $book->save();
-//        }
-//        echo $books;
         return View::make('books');
     }
 
     public function getImportBooks()
     {
-        $book = new Book;
+//        $book = new Book;
 //        $book->id = 2;
-        $book->title= "Da Vinci Code";
-        $book->author= "Dan Brown";
-        $book->save();
+//        $book->title= "The Mist";
+//        $book->author= "Stephen King";
+//        $book->save();
+
+        if (($csv_books = fopen("../private/books.csv", "r")) !== FALSE) {
+            while (($csv_book = fgetcsv($csv_books, 1000, ";")) !== FALSE) {
+                echo "id: " . $csv_book[0] . "<br>";
+                echo "title: " . $csv_book[1] . "<br>";
+                echo "author: " . $csv_book[2] . "<br>";
+                echo "<br>";
+
+                $book = new Book;
+                $book->title = $csv_book[1];
+                $book->author = $csv_book[2];
+                $book->save();
+            }
+            fclose($csv_books);
+        }
+
+//        $csv_books = array_map('str_getcsv', file('../private/books.csv'));
+//        foreach($csv_books as $key => $csv_book){
+//            $book = new Book;
+//            $book->title = $csv_book[1];
+//            $book->author = $csv_book[2];
+//            $book->save();
+//        }
+
         return 'importing books...';
     }
 
