@@ -16,11 +16,17 @@ class BookController extends BaseController {
 
     public function getIndex()
     {
-        $books = DB::table('books')->get();
+
+        $orderBy = Input::get('orderBy');
+        echo $orderBy . "<br><br>";
+
+        $search = Input::get('search');
+
+        $books = DB::table('books')->where('title', 'like', '%' . $search . '%')->orderBy($orderBy)->get();
 
         foreach ($books as $book)
         {
-            echo "El titulo: ". $book->title;
+            echo "El titulo: ". $book->title . '; El autor: ' . $book->author;
             echo "<br>";
         }
 
@@ -70,8 +76,19 @@ class BookController extends BaseController {
         return 'importing books...';
     }
 
-    public function getDelete($book)
+    public function getDelete($id)
     {
+//        $results = DB::select('select * from books where id = ?', array($id));
+//
+//        foreach ($results as $book)
+//        {
+//            echo "El titulo: ". $book->title;
+//            echo "<br>";
+//            $book->delete();
+//        }
+
+        DB::delete('delete from books where id = ?', array($id));  //TODO: this works, but $book->delete looks better
+
         return 'deleteBooks';
     }
 
