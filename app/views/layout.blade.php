@@ -1,24 +1,28 @@
 
 <html>
+<link rel="stylesheet" type="text/css" href="{{url('bootstrap/css/bootstrap.min.css')}}">
 <body>
-<h1>Yaraku Books</h1>
-<table class=".table-striped">
-    <thead>
-    <th>#</th>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Options</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td>cenas</td>
-        <td>outro</td>
-        <td>!?</td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <h1>Yaraku Books</h1>
+    <table class="table table-striped" width="100%">
+        <thead>
+        <th>#</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Options</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>cenas</td>
+            <td>outro</td>
+            <td><span class="glyphicon glyphicon-trash"></span></td>
+        </tr>
+        </tbody>
+    </table>
 
-@yield('content')
+    @yield('content')
+
+</div>
 </body>
 </html>
