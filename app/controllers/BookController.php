@@ -95,11 +95,16 @@ class BookController extends BaseController {
 //        }
 
         $book = Book::find($id);
-        $book->delete();
+        if(isset($book)){
+            $book->delete();
+            return 'deleted book';
+        } else {
+            return 'book not found!';
+        }
 
 //        DB::delete('delete from books where id = ?', array($id));  //TODO: this works, but $book->delete looks better
 
-        return 'deleteBooks';
+
     }
 
 
