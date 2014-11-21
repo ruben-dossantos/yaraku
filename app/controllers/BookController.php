@@ -23,10 +23,11 @@ class BookController extends BaseController {
         $search = Input::get('search');
 
         $books = DB::table('books')->where('title', 'like', '%' . $search . '%')->orderBy($orderBy)->get();
+//        $books = Book::get()->where('title', 'like', '%' . $search . '%')->orderBy($orderBy)->get();
 
         foreach ($books as $book)
         {
-            echo "El titulo: ". $book->title . '; El autor: ' . $book->author;
+            echo "El identificador: ". $book->id ."; El titulo: ". $book->title . '; El autor: ' . $book->author;
             echo "<br>";
         }
 
@@ -39,7 +40,11 @@ class BookController extends BaseController {
 //        $d->close();
 
 
-        return View::make('books');
+
+//        $this->layout->title = "Yaraku's Books";
+
+
+        return View::make('books', ['name'=>'bino']);
     }
 
     public function getImportBooks()
@@ -79,15 +84,20 @@ class BookController extends BaseController {
     public function getDelete($id)
     {
 //        $results = DB::select('select * from books where id = ?', array($id));
-//
+//        $cenas = null;
 //        foreach ($results as $book)
 //        {
-//            echo "El titulo: ". $book->title;
+//            echo "El id: " . $book->id . "<br>";
+//            echo "El titulo: ". $book->title . "<br>";
+//            echo "El autor: ". $book->author . "<br>";
 //            echo "<br>";
 //            $book->delete();
 //        }
 
-        DB::delete('delete from books where id = ?', array($id));  //TODO: this works, but $book->delete looks better
+        $book = Book::find($id);
+        $book->delete();
+
+//        DB::delete('delete from books where id = ?', array($id));  //TODO: this works, but $book->delete looks better
 
         return 'deleteBooks';
     }
