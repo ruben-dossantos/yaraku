@@ -13,7 +13,7 @@
 
 Route::model('book', 'Book');
 
-Route::pattern('book', '[0-9]+');
+//Route::pattern('book', '[0-9]+');
 
 Route::get('/', function()
 {
@@ -21,7 +21,16 @@ Route::get('/', function()
 });
 
 Route::delete('books/{id}', 'BookController@getDelete');
+Route::get('books/{id}/delete', 'BookController@getDelete');
 Route::controller('books', 'BookController');
+
+//Route::get('books', function(){
+//	$layout = View::make('layout');
+//	$layout->title = 'Yaraku\'s Books 1.0';
+//	$name = 'bino';
+//	$layout->main = View::make('books')->with('content', "Hi $name, Welcome to Yaraku's Books")->with('name', $name);
+//	return $layout;
+//});
 
 Route::get('book', function()
 {
