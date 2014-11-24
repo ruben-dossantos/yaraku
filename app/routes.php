@@ -17,7 +17,8 @@ Route::model('book', 'Book');
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	//return View::make('hello');
+	return Redirect::to('books');
 });
 
 Route::delete('books/{id}', 'BookController@getDelete');

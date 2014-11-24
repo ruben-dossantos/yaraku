@@ -1,0 +1,8 @@
+{
+  "name": "yaraku",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest"
+  }
+}
+

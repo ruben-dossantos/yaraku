@@ -3,7 +3,7 @@
     @section('title')
     <title>{{$title}}</title>
     @show
-    {{ HTML::style('bootstrap/css/bootstrap.min.css') }}
+    {{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
 </head>
 <body>
 <div class="container">
