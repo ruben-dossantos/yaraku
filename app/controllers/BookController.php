@@ -47,6 +47,36 @@ class BookController extends BaseController {
 
     }
 
+    public function postImportBooks(){
+
+        if (Request::isMethod('post'))
+        {
+            $file = Input::file('file')->getFilename();
+            if(Input::file('file')->isValid()){
+                echo "hasFile";
+            }
+            echo $file;
+
+            Input::file('file')->move('uploaded_csv/');
+
+            if (($csv_books = fopen("uploaded_csv/" . $file, "r")) !== FALSE) {
+                while (($csv_book = fgetcsv($csv_books, 1000, ";")) !== FALSE) {
+                    $book = new Book;
+                    $book->title = $csv_book[1];
+                    $book->author = $csv_book[2];
+                    $book->save();
+                }
+                fclose($csv_books);
+            }
+            return Redirect::to('books')->with('success', 'Book(s) imported successfully!');
+
+        }
+
+        $this->layout->title = 'Yaraku\'s Bookstore';
+        $this->layout->name = 'bino';
+        $this->layout->main = View::make('books');
+    }
+
     public function getImportBooks()
     {
         if (($csv_books = fopen("../private/books.csv", "r")) !== FALSE) {

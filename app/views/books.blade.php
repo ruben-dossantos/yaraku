@@ -39,5 +39,17 @@
 
 
 <hr>
+{{ Form::open(['url' => 'books/import-books','method'=>'post', 'files'=>true]) }}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            {{ Form::file('file',['placeholder'=>'csv file...', 'class'=>'form-control']) }}
+            <span class="input-group-btn">
+                {{ Form::submit('Upload',['class'=>'btn btn-info']) }}
+            </span>
+        </div>
+    </div>
+</div>
+{{ Form::close() }}
 
 {{HTML::link('books/import-books','Import books from csv...')}}
