@@ -51,30 +51,36 @@ class BookController extends BaseController {
 
         if (Request::isMethod('post'))
         {
-            $file = Input::file('file')->getFilename();
-            if(Input::file('file')->isValid()){
-                echo "hasFile";
-            }
-            echo $file;
+            $file = Input::file('file');
 
-            Input::file('file')->move('uploaded_csv/');
+            try {
+                $file->move('uploaded_csv/');
 
-            if (($csv_books = fopen("uploaded_csv/" . $file, "r")) !== FALSE) {
-                while (($csv_book = fgetcsv($csv_books, 1000, ";")) !== FALSE) {
-                    $book = new Book;
-                    $book->title = $csv_book[1];
-                    $book->author = $csv_book[2];
-                    $book->save();
+                if (($csv_books = fopen("uploaded_csv/" . $file->getFilename(), "r")) !== FALSE) {
+                    //try {
+                    while (($csv_book = fgetcsv($csv_books, 1000, ";")) !== FALSE) {
+                        $book = new Book;
+                        $book->title = $csv_book[1];
+                        $book->author = $csv_book[2];
+                        $book->save();
+                    }
+                    //} catch (Exception $e){
+                    //    return Redirect::to('books')->with('error', 'Bad file!');
+                    //}
+                    // BadMethodCallException
+                    // ErrorException
+                    fclose($csv_books);
                 }
-                fclose($csv_books);
+                return Redirect::to('books')->with('success', 'Book(s) imported successfully!');
+            } catch (BadMethodCallException $e){
+                return Redirect::to('books')->with('error', 'No file selected!');
+            } catch (ErrorException $e){
+                return Redirect::to('books')->with('error', 'Bad file! It is supposed to be a csv with id;title;author');
+            } catch (Exception $e){
+                return Redirect::to('books')->with('error', 'Error unkown...' . $e);
             }
-            return Redirect::to('books')->with('success', 'Book(s) imported successfully!');
 
         }
-
-        $this->layout->title = 'Yaraku\'s Bookstore';
-        $this->layout->name = 'bino';
-        $this->layout->main = View::make('books');
     }
 
     public function getImportBooks()

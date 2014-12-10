@@ -16,6 +16,13 @@
         <a href="/books" class="close">&times;</a>
     </div>
     @endif
+
+    @if(Session::has('error'))
+    <div data-alert class="alert alert-danger">
+        {{Session::get('error')}}
+        <a href="/books" class="close">&times;</a>
+    </div>
+    @endif
     {{$main}}
 
 </div>
