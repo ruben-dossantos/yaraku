@@ -14,30 +14,12 @@ class BookController extends BaseController {
         $this->book = $book;
     }
 
-//        $d = dir(".");
-//        echo "Handle: " . $d->handle . "\n";
-//        echo "Path: " . $d->path . "\n";
-//        while (false !== ($entry = $d->read())) {
-//            echo $entry."\n";
-//        }
-//        $d->close();
-
     public function getIndex()
     {
 
         $orderBy = Input::get('orderBy');
         $search = Input::get('search');
 
-//        $books = DB::table('books')->where('title', 'like', '%' . $search . '%')->orderBy($orderBy)->get();
-//        $books = Book::get()->where('title', 'like', '%' . $search . '%')->orderBy($orderBy)->get();
-
-//        foreach ($books as $book)
-//        {
-//            echo "El identificador: ". $book->id ."; El titulo: ". $book->title . '; El autor: ' . $book->author;
-//            echo "<br>";
-//        }
-
-//        return View::make('books', ['name'=>'bino']);
         $books = Book::where('title', 'like', '%' . $search . '%')->orderBy($orderBy)->get();
 
         $this->layout->title = 'Yaraku\'s Bookstore';
@@ -57,18 +39,12 @@ class BookController extends BaseController {
                 $file->move('uploaded_csv/');
 
                 if (($csv_books = fopen("uploaded_csv/" . $file->getFilename(), "r")) !== FALSE) {
-                    //try {
                     while (($csv_book = fgetcsv($csv_books, 1000, ";")) !== FALSE) {
                         $book = new Book;
                         $book->title = $csv_book[1];
                         $book->author = $csv_book[2];
                         $book->save();
                     }
-                    //} catch (Exception $e){
-                    //    return Redirect::to('books')->with('error', 'Bad file!');
-                    //}
-                    // BadMethodCallException
-                    // ErrorException
                     fclose($csv_books);
                 }
                 return Redirect::to('books')->with('success', 'Book(s) imported successfully!');
