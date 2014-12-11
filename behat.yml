@@ -1,0 +1,6 @@
+default:
+    suites:
+        functional:
+            contexts: [ FunctionalFeatureContext ]
+        integration:
+            contexts: [ IntegrationFeatureContext ]

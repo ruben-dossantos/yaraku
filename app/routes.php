@@ -21,6 +21,12 @@ Route::get('/', function()
 	return Redirect::to('books');
 });
 
+Route::get('/test', function()
+{
+	return View::make('hello');
+});
+
+
 Route::delete('books/{id}', 'BookController@getDelete');
 Route::get('books/{id}/delete', 'BookController@getDelete');
 Route::controller('books', 'BookController');
