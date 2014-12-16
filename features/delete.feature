@@ -4,6 +4,6 @@ Feature: Delete a book
   I need to click the delete button
 
   Scenario: Deleting a book
-    Given that I visit "/books"
-    When I click on delete book
-    Then that book shouldn't exist anymore in the database
+    Given that a book with id "1" exists
+    When I send a GET request to "/books/1/delete"
+    Then that book shouldn't be found anymore

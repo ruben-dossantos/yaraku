@@ -46,20 +46,4 @@ class FunctionalFeatureContext implements SnippetAcceptingContext
     }
 
 
-
-    /**
-     * @Given I visit :arg1
-     */
-    public function iVisit($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should see :arg1
-     */
-    public function iShouldSee($arg1)
-    {
-        throw new PendingException();
-    }
 }

@@ -4,5 +4,5 @@ Feature: Root page
   I need to go to the root page
 
   Scenario: Confirm root page
-    Given I visit "/books"
+    Given I send a GET request to "/books"
     Then I should see "Yaraku's Books"

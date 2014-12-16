@@ -44,22 +44,4 @@ class IntegrationFeatureContext implements SnippetAcceptingContext
 
         return require __DIR__.'/../../bootstrap/start.php';
     }
-
-
-
-    /**
-     * @Given I visit :arg1
-     */
-    public function iVisit($arg1)
-    {
-        $this->call('GET', $arg1);
-    }
-
-    /**
-     * @Then I should see :arg1
-     */
-    public function iShouldSee($arg1)
-    {
-        throw new PendingException();
-    }
 }

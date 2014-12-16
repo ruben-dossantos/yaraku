@@ -4,7 +4,7 @@ Feature: Search for a book
   I need to search for it's name
 
   Scenario: Searching for a book
-    Given that I visit "/books"
+    Given I send a GET request to "/books"
     When I fill the search input box with "Adventures of Tom Sawyer"
     And it exists in the database
     Then a book with the name "Adventures of Tom Sawyer" should be shown

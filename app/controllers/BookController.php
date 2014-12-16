@@ -78,9 +78,9 @@ class BookController extends BaseController {
         $book = Book::find($id);
         if(isset($book)){
             $book->delete();
-            return Redirect::to('books')->with('success', 'Book deleted successfully!');
+            return Redirect::to('books', 302)->with('success', 'Book deleted successfully!');
         } else {
-            return 'book not found!';
+            return Redirect::to('books', 303)->with('error', 'Book not found!');
         }
     }
 }
